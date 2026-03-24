@@ -1,62 +1,83 @@
-# This is Fake News Generator, Who gives you fake news or also this is Funny
 import random
 
-subjects = ["Virat kohli","Rohit sharma","Shubhman gill","Sharukh khan","Deepika","Ranveer","Modi ji","Monkey form Mumbai"]
+subjects = ["Virat kohli","Rohit sharma","Shubhman gill","Sharukh khan","Deepika","Ranveer","Modi ji","Monkey from Mumbai"]
 
-action = ["launches","eats","ridding","swimming","singing","dancing ","laughing "]
+actions = ["launches","eats","riding","swimming","singing","dancing","laughing"]
 
-places = ["in Mumbai's local train","at Red Fort","in Bathroom","at Public Place","at Gate way of India","at Dubai"]
+places = ["in Mumbai's local train","at Red Fort","in Bathroom","at Public Place","at Gateway of India","at Dubai"]
 
-print("\n1. Do you want to Genetrate News\n2.Do you want to Add any Word\n")
-choice = int(input("Enter a choice: "))
-if choice == int(1):
+
+# Function to generate news
+def generate_news():
+    sub = random.choice(subjects)
+    act = random.choice(actions)
+    place = random.choice(places)
+    return f"BREAKING NEWS: {sub} {act} {place}"
+
+
+print("\n1. Generate News\n2. Add Word and Generate News\n")
+choice = int(input("Enter your choice: "))
+
+
+# Ask user if they want to save news
+save_option = input("Do you want to save news to file? (yes/no): ").strip().lower()
+
+
+if choice == 1:
     while True:
-        sub = random.choice(subjects)
-        act = random.choice(action)
-        place = random.choice(places)
+        headline = generate_news()
+        print("\n" + headline)
 
-        headline = f"BREAKING NEWS: {sub} {act} {place}\n"
-        print(headline)
+        # Save to file if user selected yes
+        if save_option == "yes":
+            with open("Fake_News.txt", "a") as file:
+                file.write(headline + "\n")
 
-        user_input = input("\nDo you want another One(yes/no): \n".lower().strip())
+        user_input = input("\nDo you want another one? (yes/no): ").strip().lower()
         if user_input == "no":
             break
+        elif user_input == "yes":
+            continue
+        else:
+            print("Wrong Choice")
+            break
+            
 
+elif choice == 2:
+    print("\nWhat do you want to change?\n1. Subject\n2. Action\n3. Place")
+    choice1 = int(input("Enter your choice: "))
 
-elif choice == int(2):
-    print("What do you want to Change:-\n1. Subject\n2. Action\n3. Places")
-    choice1 = int(input("Enter your choice:"))
-    if choice1 == int(1):
-        add_subject = input("Enter a Subject: ".capitalize())
+    if choice1 == 1:
+        add_subject = input("Enter a Subject: ").capitalize()
         subjects.append(add_subject)
-        
-    elif choice1 == int(2):
-        add_action = input("Enter a Action: ".lower())
-        action.append(add_action)
-        
-    elif choice1 == int(3):
+
+    elif choice1 == 2:
+        add_action = input("Enter an Action: ").lower()
+        actions.append(add_action)
+
+    elif choice1 == 3:
         add_place = input("Enter a Place: ")
         places.append(add_place)
-        
-    else:
-        print("You Entered Wrong Choice !..")
 
+    else:
+        print("Wrong choice!")
 
     while True:
-        sub = random.choice(subjects)
-        act = random.choice(action)
-        place = random.choice(places)
+        headline = generate_news()
+        print("\n" + headline)
 
-        headline = f"BREAKING NEWS: {sub} {act} {place}\n"
-        print(headline)
+        # Save to file if user selected yes
+        if save_option == "yes":
+            with open("Fake_News.txt", "a") as file:
+                file.write(headline + "\n")
 
-        user_input = input("\nDo you want another One(yes/no): \n".lower().strip())
+        user_input = input("\nDo you want another one? (yes/no): ").strip().lower()
         if user_input == "no":
             break
 
 
 else:
-    print("You Entred Wrong Choice!...")
+    print("You entered wrong choice!")
 
 
-print("\nThanks for using Fake News Generator!.. GoodBye :)")
+print("\nThanks for using Fake News Generator!.. Goodbye :)")
